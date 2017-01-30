@@ -9,13 +9,14 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "start": "nodemon --ignore node_modules shortly.js",
-    "test": "node shortly.js & mocha --bail --reporter nyan test/ServerSpec.js; pkill -n node;",
+    "start": "node server.js",    
+    "startNodemont": "nodemon --ignore node_modules server.js",
+    "test": "mocha spec.js"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "request": "^2.34.0",    
+    "request": "^2.34.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

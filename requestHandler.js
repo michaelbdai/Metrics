@@ -1,6 +1,8 @@
 
+var metrics = {}
 
 
-module.exports.createMetrics = (request, response) {
+module.exports.createMetrics = function (request, response) {
+  return
 
 }

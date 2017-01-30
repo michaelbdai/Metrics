@@ -7,11 +7,13 @@ var Metric = function (name) {
   this.median = null;
 };
 Metric.prototype.insert = function () {
+  return
 
 }
 
 
 Metric.prototype.average = function () {
+  return 
 
 }
 
