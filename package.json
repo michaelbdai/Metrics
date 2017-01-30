@@ -1,0 +1,24 @@
+{
+  "name": "Metrics",
+  "version": "1.0.0",
+  "description": "Implement a web application which allows users to create multiple metric and post values to that metric",
+  "author": "Bing Dai <michaelbdai@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "start": "nodemon --ignore node_modules shortly.js",
+    "test": "node shortly.js & mocha --bail --reporter nyan test/ServerSpec.js; pkill -n node;",
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "request": "^2.34.0",    
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
