@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node server.js",    
-    "startNodemont": "nodemon --ignore node_modules server.js",
+    "startN": "nodemon --ignore node_modules server.js",
     "test": "mocha spec.js"
   },
   "dependencies": {
