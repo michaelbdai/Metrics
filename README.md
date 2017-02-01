@@ -11,6 +11,16 @@ Web API supports the following actions:
   - Median of a values posted to metric - Time complexity O(1)
   - Min value for metric - Time complexity O(1)
   - Max value for metric - Time complexity O(1)
+## API documentation
+### Create a Metric
+endpoint: /api/createmetric
+request body:
+```
+{ 
+  metricName: 'anyString'
+}
+```
+### Post Values to a Metric
 
 ## Technology
 All API features are O(1) time complexity. It is also O(1) space complexity.
@@ -36,6 +46,11 @@ The data struction of the 'Neo' metric looks like this.
   }
 ```
 The sorting heap only save a copy of the index for conent. It takes the contents as arguement when it performs the soring. For scalability, the value can be very big, it saves space by only copying the index only. 
+### Handle errors
+Covers following errors
+* Used Express middleware to handle all input type error
+* If the metric name does exist, server will either create a metric or respond warning. No error will occur. 
+
 
 ## Usage
 Intial installation
@@ -51,5 +66,23 @@ Start server
 npm start
 ```
 ## Deploy instruction
+In terminal type in user-name followed by ip address
+```
+ssh <user-name>@<ip-address-of-the-server-you-want-to-log-into>
+```
+Then, enter password
+navigate to folder, or create an folder
+```
+mkdir codeChallenge && cd codeChallenge
+```
+clone this repo
+```
+git clone https://github.com/michaelbdai/Metrics
+```
+install indepedency and start the server
+```
+npm install
+npm start
+```
 
 
