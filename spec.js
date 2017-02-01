@@ -9,6 +9,7 @@ var Metric = require('./helperFunctions').Metric;
 var BinaryHeapIndex = require('./helperFunctions').BinaryHeapIndex;
 
 describe('Test for Metrics coding challenge: ', function() {
+ 
   describe('BinaryHeapIndex helper function ', function() {
     it('should be a function', function(done) {
       expect(typeof BinaryHeapIndex).to.equal('function')
@@ -39,6 +40,8 @@ describe('Test for Metrics coding challenge: ', function() {
       done();
     });
   });
+
+
   describe('Metric helper function', function() {
     it('should be a function', function(done) {
       expect(typeof Metric).to.equal('function')
@@ -48,8 +51,8 @@ describe('Test for Metrics coding challenge: ', function() {
     var name = 'testMetric';
     metrics[name] = new Metric(name);
     //insert 1, 5, 6, 7, 9, 10
-    metrics.testMetric.insert({value: 10});
     metrics.testMetric.insert({value: 6});
+    metrics.testMetric.insert({value: 10});
     metrics.testMetric.insert({value: 5});
     metrics.testMetric.insert({value: 1});
     metrics.testMetric.insert({value: 7});
@@ -283,5 +286,6 @@ describe('Test for Metrics coding challenge: ', function() {
         })
     })     
   });
+
 
 });
