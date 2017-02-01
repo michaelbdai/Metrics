@@ -22,7 +22,7 @@ describe('Test for Metrics coding challenge: ', function() {
     //insert 1, 5, 6, 7, 9, 10
     sampleArray.forEach(function(element,index) {
       referenceContent[index] = {value: element}
-      testBinaryHeapIndex.push(index);
+      testBinaryHeapIndex.push(index, referenceContent);
     })
 
     it('should inserted 6 element', function(done) {
@@ -34,7 +34,7 @@ describe('Test for Metrics coding challenge: ', function() {
       done();
     });
     it('should get new min after pop', function(done) {
-      testBinaryHeapIndex.pop();
+      testBinaryHeapIndex.pop(referenceContent);
       expect(referenceContent[testBinaryHeapIndex.content[0]].value).to.equal(5)
       done();
     });
