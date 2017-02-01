@@ -85,5 +85,36 @@ npm install
 npm start
 ```
 ## Test coverage
-
-
+```
+  Test for Metrics coding challenge: 
+    BinaryHeapIndex helper function 
+      ✓ should be a function
+      ✓ should inserted 6 element
+      ✓ should get Min from the top parent of min-heap
+      ✓ should get new min after pop
+    Metric helper function
+      ✓ should be a function
+      ✓ should inserted 6 element
+      ✓ should get smallest number from min function
+      ✓ should get largest number from max function
+      ✓ should get middle half from median function
+      ✓ should get average value from average function
+    Create a Metric
+      ✓ should create new metric if there is not duplicate (54ms)
+      ✓ should not overwrite existing metric, if attempt to create existing metric
+    Post values to a Metric​
+      ✓ should insert a value
+      ✓ should create and metric and insert a value if the metric name is new
+      ✓ should be able to insert multiple values
+    Retrieve statistics data
+      ✓ should retrieve statistics data
+      ✓ should respond with error message if the metric name does not exist
+    Handle Error
+      ✓ should respond 400 if metric name is not string
+      ✓ should respond 400 if post value is not a number or array
+      ✓ should respond 400 if post value is array, which contains non-number element
+      ✓ should respond 400 if missing parameter for post value
+      ✓ should respond 400 if missing parameter for create metric
+      ✓ should respond 400 if missing parameter for retrieving statistics
+      ✓ should respond 404 if the endpoint is incorrect
+```
