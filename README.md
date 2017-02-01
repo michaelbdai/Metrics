@@ -11,7 +11,9 @@ Web API supports the following actions:
   - Median of a values posted to metric - Time complexity O(1)
   - Min value for metric - Time complexity O(1)
   - Max value for metric - Time complexity O(1)
+  
 ## API documentation
+
 ### Create a Metric
 endpoint: /api/createmetric
 request body:
