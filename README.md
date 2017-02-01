@@ -1,6 +1,6 @@
 # Metrics
 
-### web application which allows users to create multiple metric and post values to that metric
+### Web application which allows users to create multiple metric and post values to that metric
 
 ## Project Description
 Web API supports the following actions:
