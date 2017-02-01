@@ -15,7 +15,7 @@ Web API supports the following actions:
 ## API documentation
 
 ### Create a Metric
-
+method: POST <br>
 endpoint: /api/createmetric <br>
 request body:
 ```
@@ -24,7 +24,34 @@ request body:
 }
 ```
 ### Post Values to a Metric
-
+method: POST <br>
+endpoint: /api/postvalues <br>
+request body:
+```
+{ 
+  metricName: 'anyString'
+  value: 10 // number
+  //or array of numbers value: [10, 20, 11, 5]
+}
+```
+### Retrieve Statistics
+method: GET <br>
+endpoint: /api/retrievestatistics <br>
+request body:
+```
+{ 
+  metricName: 'anyString'
+}
+```
+respond body:
+```
+{
+  arithmeticMean: number,
+  median: number,
+  min: number,
+  max: number
+}
+```
 ## Technology
 All API features are O(1) time complexity. It is also O(1) space complexity.
 ### O(1) time complexity
