@@ -54,7 +54,6 @@ module.exports.postValues = function (request, response) {
   if (!metrics[metricName]) {
     metrics[metricName] = new Metric(metricName);
   }
-
   if (typeof value === 'number') {
     metrics[metricName].insert({value: value});
     response.status(200).send({

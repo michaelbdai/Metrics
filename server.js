@@ -10,7 +10,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// For larger scale App, the router configuration should be in a separate file
+// Apply for hand input type error
 router.use(requestHandler.checkInputDataType);
 
 router.post('/createmetric', requestHandler.createMetric);
