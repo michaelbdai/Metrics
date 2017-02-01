@@ -4,10 +4,10 @@
 
 ## Project Description
 Web API supports the following actions:
-1. Create a Metric
-2. Post Values to a Metric
-3. Retrieve Statistics including: 
-a. Arithmetic Mean of a values posted to metric
-b. Median of a values posted to metric
-c. Min value for metric
-d. Max value for metric
+* Create a Metric
+* Post Values to a Metric
+* Retrieve Statistics including:
+  - Arithmetic Mean of a values posted to metric
+  - Median of a values posted to metric
+  - Min value for metric
+  - Max value for metric
