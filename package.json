@@ -9,14 +9,17 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "start": "node server.js",    
+    "start": "node server.js",
     "startN": "nodemon --ignore node_modules server.js",
     "test": "mocha spec.js"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "express": "^4.13.4",
-    "request": "^2.34.0"
+    "mocha": "^2.5.3",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

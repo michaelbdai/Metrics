@@ -1,8 +1,10 @@
-var expect = require('chai').expect;
-var request = require('request');
+var chai = require('chai');
+var expect = chai.expect;
+var request = require('supertest');
+var mocha = require('mocha');
+var app = require('./server');
 
-var handler = require('./requestHandler');
-var stub = require('./stub');
+var requestHandler = require('./requestHandler');
 var Metric = require('./helperFunctions').Metric;
 var BinaryHeapIndex = require('./helperFunctions').BinaryHeapIndex;
 
@@ -74,19 +76,101 @@ describe('Test for Metrics coding challenge: ', function() {
     });    
   });
 
-  describe('Request handler test', function() {
-
-  })
-
-  describe('Create a Mertic', function() {
+  describe('Create a Metric', function() {
+    it('should create new metric if there is not duplicate', function(done) {     
+      request(app)
+        .post('/api/createmetric')
+        .send({
+          metricName: 'Neo'
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.name).to.equal('Neo');
+          done()
+        });        
+    })
+    it('should not overwrite existing metric, if attempt to create existing metric', function(done) {     
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'Neo',
+          value: 12
+        })
+        .end(() => {});
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'Neo',
+          value: 20
+        })
+        .end(() => {});        
+      request(app)
+        .post('/api/createmetric')
+        .send({
+          metricName: 'Neo'
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.err).to.equal('metric already exist');
+        }); 
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'Neo',
+          value: 25
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.sizeOfMetric).to.equal(3);
+          done();
+        });
+    })    
 
   })
 
   describe('Post Values to a Metric​', function() {
-
+    it('should insert a value', function(done) {     
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'Neo',
+          value: 10
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.sizeOfMetric).to.equal(4);
+          done()
+        });
+    });       
+    it('should create and metric and insert a value if the metric name is new', function(done) {     
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'Ava',
+          value: 10
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.sizeOfMetric).to.equal(1);
+          expect(!!res.body.alert).to.equal(true);
+          done()
+        });        
+    }); 
   })
   describe('Retrieve Statistics', function() {
+    it('should retrieve statistics data', function(done) {     
+      request(app)
+        .get('/api/retrievestatistics')
+        .send({
+          metricName: 'Neo',
+        })
+        .expect(200)
+        .end((err, res) => {
+          console.log(res.body);
 
+          done()
+        });        
+    }); 
   })
 
 })
