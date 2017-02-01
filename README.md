@@ -19,6 +19,7 @@ The input value are sorted indirectly using min-heap, max-heap, median-heap(made
 ### O(1) space complexity
 The data struction of the 'Neo' metric looks like this.
 ```
+{ Neo:
 { name: 'Neo',
   sum: 67,
   content: 
@@ -30,7 +31,9 @@ The data struction of the 'Neo' metric looks like this.
   minHalfHeap: { content: [ 1, 2 ], compareFunction: [Function] },
   maxHalfHeap: { content: [ 0, 3 ], compareFunction: [Function] },
   minHeap: { content: [ 3, 0, 2, 1 ], compareFunction: [Function] },
-  maxHeap: { content: [ 2, 0, 1, 3 ], compareFunction: [Function] } }
+  maxHeap: { content: [ 2, 0, 1, 3 ], compareFunction: [Function] } },
+  ...
+  }
 ```
 The sorting heap only save a copy of the index for conent. It takes the contents as arguement when it performs the soring. For scalability, the value can be very big, it saves space by only copying the index only. 
 
