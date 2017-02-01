@@ -19,6 +19,8 @@ router.get('/retrievestatistics', requestHandler.retrieveStatistics);
 router.post('/_RESET_', requestHandler.reset);
 
 app.use('/api', router);
+app.get('/*', requestHandler.wrongEndPoint);
+app.post('/*', requestHandler.wrongEndPoint);
 
 
 

@@ -25,7 +25,6 @@ var testInputDataType = function (body) {
 //this is use for middleware
 module.exports.checkInputDataType = function (request, response, next) {
   if (testInputDataType(request.body)) {
-    console.log
     next()
   } else {
     response.status(400).send({
@@ -34,6 +33,12 @@ module.exports.checkInputDataType = function (request, response, next) {
   }
 }
 module.exports.createMetric = function (request, response) {
+  if (!request.body.metricName) {
+    response.status(400).send({
+      err: 'missing metricName'
+    });
+    return;
+  }  
   var metricName = request.body.metricName;
   if (!metrics[metricName]) {
     metrics[metricName] = new Metric(metricName);
@@ -48,7 +53,13 @@ module.exports.reset = function (request, response) {
 
 }
 
-module.exports.postValues = function (request, response) { 
+module.exports.postValues = function (request, response) {
+  if (!request.body.metricName || !request.body.value) {
+    response.status(400).send({
+      err: 'missing metricName or value'
+    });
+    return;
+  }
   var metricName = request.body.metricName;
   var value = request.body.value;
   if (!metrics[metricName]) {
@@ -70,6 +81,12 @@ module.exports.postValues = function (request, response) {
 }
 
 module.exports.retrieveStatistics = function (request, response) {
+  if (!request.body.metricName) {
+    response.status(400).send({
+      err: 'missing metricName'
+    });
+    return;
+  }   
   var metricName = request.body.metricName;
   if (!metrics[metricName]) {
     response.status(200).send({err: 'metric name does not exist'})
@@ -81,4 +98,9 @@ module.exports.retrieveStatistics = function (request, response) {
       max: metrics[metricName].max()
     });
   }
+}
+module.exports.wrongEndPoint = function (request, response) {
+  response.status(404).send({
+    err: 'Wellcome to Metric, please enter the correct endpoint'
+  });
 }

@@ -233,7 +233,55 @@ describe('Test for Metrics coding challenge: ', function() {
           expect(!!res.body.err).to.equal(true)
           done();
         })
-    })        
+    })
+    it('should respond 400 if missing parameter for post value', function(done) {
+      request(app)
+        .post('/api/postvalues')
+        .send({
+
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })
+    it('should respond 400 if missing parameter for create metric', function(done) {
+      request(app)
+        .post('/api/createmetric')
+        .send({
+
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })
+    it('should respond 400 if missing parameter for retrieving statistics', function(done) {
+      request(app)
+        .get('/api/retrievestatistics')
+        .send({
+
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })
+    it('should respond 404 if the endpoint is incorrect', function(done) {
+      request(app)
+        .get('/~~ss')
+        .send({
+
+        })
+        .expect(404)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })     
   });
 
 });
