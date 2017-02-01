@@ -78,7 +78,9 @@ The data struction of the 'Neo' metric looks like this.
 The sorting heap only save a copy of the index for conent. It takes the contents as arguement when it performs the soring. For scalability, the value can be very big, it saves space by only copying the index only. 
 ### Handle errors
 Covers following errors
-* Used Express middleware to handle all input type error
+* Used Express middleware to handle all input type error, code 400.
+* Missiong paramters, code 400.
+* Incorrect endpoints, code 404.
 * If the metric name does exist, server will either create a metric or respond warning. No error will occur. 
 
 
