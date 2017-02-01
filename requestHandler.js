@@ -1,7 +1,38 @@
 var Metric = require('./helperFunctions').Metric;
 var metrics = {}
 
-
+var testInputDataType = function (body) {
+  if (body.metricName !== undefined) {
+    if (typeof body.metricName !== 'string') {
+      return false;
+    }
+  }
+  if (body.value !== undefined) {
+    if (typeof body.value !== 'number' && !Array.isArray(body.value)) {
+      return false;
+    }
+    if (Array.isArray(body.value)){
+      var correctDataType = body.value.reduce(function(previousResult, element) {
+        return previousResult && (typeof element === 'number');
+      }, true);
+      if (!correctDataType) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+//this is use for middleware
+module.exports.checkInputDataType = function (request, response, next) {
+  if (testInputDataType(request.body)) {
+    console.log
+    next()
+  } else {
+    response.status(400).send({
+      err: 'wrong input data type'
+    });   
+  }
+}
 module.exports.createMetric = function (request, response) {
   var metricName = request.body.metricName;
   if (!metrics[metricName]) {
@@ -17,35 +48,38 @@ module.exports.reset = function (request, response) {
 
 }
 
-module.exports.postValues = function (request, response) {
+module.exports.postValues = function (request, response) { 
   var metricName = request.body.metricName;
   var value = request.body.value;
-  if (metrics[metricName]) {
+  if (!metrics[metricName]) {
+    metrics[metricName] = new Metric(metricName);
+  }
+
+  if (typeof value === 'number') {
     metrics[metricName].insert({value: value});
     response.status(200).send({
       sizeOfMetric: metrics[metricName].size()
     });
-  } else {
-    metrics[metricName] = new Metric(metricName);
-    metrics[metricName].insert({value: value});
+  } else if (Array.isArray(value)) {
+    value.forEach(function(element) {
+      metrics[metricName].insert({value: element});
+    })
     response.status(200).send({
-      'sizeOfMetric': metrics[metricName].size(),
-      'alert': 'metric does not exist, created new metric automatically'
+      sizeOfMetric: metrics[metricName].size()
     });
   }
 }
 
 module.exports.retrieveStatistics = function (request, response) {
   var metricName = request.body.metricName;
-  console.log(metrics[metricName]);
   if (!metrics[metricName]) {
-    metrics[metricName] = new Metric(metricName);
     response.status(200).send({err: 'metric name does not exist'})
-  } 
-  response.status(200).send({
-    arithmeticMean: metrics[metricName].average(),
-    median: metrics[metricName].median(),
-    min: metrics[metricName].min(),
-    max: metrics[metricName].max()
-  })
+  } else {
+    response.status(200).send({
+      arithmeticMean: metrics[metricName].average(),
+      median: metrics[metricName].median(),
+      min: metrics[metricName].min(),
+      max: metrics[metricName].max()
+    });
+  }
 }

@@ -75,7 +75,6 @@ describe('Test for Metrics coding challenge: ', function() {
       done();
     });    
   });
-
   describe('Create a Metric', function() {
     it('should create new metric if there is not duplicate', function(done) {     
       request(app)
@@ -125,10 +124,8 @@ describe('Test for Metrics coding challenge: ', function() {
           done();
         });
     })    
-
-  })
-
-  describe('Post Values to a Metric​', function() {
+  });
+  describe('Post values to a Metric​', function() {
     it('should insert a value', function(done) {     
       request(app)
         .post('/api/postvalues')
@@ -152,12 +149,24 @@ describe('Test for Metrics coding challenge: ', function() {
         .expect(200)
         .end((err, res) => {
           expect(res.body.sizeOfMetric).to.equal(1);
-          expect(!!res.body.alert).to.equal(true);
           done()
         });        
-    }); 
-  })
-  describe('Retrieve Statistics', function() {
+    });
+    it('should be able to insert multiple values', function(done) {     
+      request(app)
+        .post('/api/postvalues')
+        .send({
+          metricName: 'HR',
+          value: [1, 6, 7, 2, 90, 3, 14, 7, 9]
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.sizeOfMetric).to.equal(9);
+          done()
+        });        
+    });      
+  });
+  describe('Retrieve statistics data', function() {
     it('should retrieve statistics data', function(done) {     
       request(app)
         .get('/api/retrievestatistics')
@@ -166,11 +175,65 @@ describe('Test for Metrics coding challenge: ', function() {
         })
         .expect(200)
         .end((err, res) => {
-          console.log(res.body);
-
+          expect(res.body.arithmeticMean).to.equal(16.75);
+          expect(res.body.median).to.equal(16);
+          expect(res.body.min).to.equal(10);
+          expect(res.body.max).to.equal(25);
           done()
         });        
     }); 
-  })
+    it('should respond with error message if the metric name does not exist', function(done) {     
+      request(app)
+        .get('/api/retrievestatistics')
+        .send({
+          metricName: 'Bing',
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true);
+          done()
+        });        
+    });    
+  });
+  describe('Handle Error', function() {
+    it('should respond 400 if metric name is not string', function(done) {
+      request(app)
+        .post('/api/createmetric')
+        .send({
+          metricName: ['err'],
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })
+    it('should respond 400 if post value is not a number or array', function(done) {
+      request(app)
+        .post('/api/createmetric')
+        .send({
+          metricName: 'errTest',
+          value: 'wrongvalue'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })
+    it('should respond 400 if post value is array, which contains non-number element', function(done) {
+      request(app)
+        .post('/api/createmetric')
+        .send({
+          metricName: 'errTest',
+          value: [1, 'wrongvalue']
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(!!res.body.err).to.equal(true)
+          done();
+        })
+    })        
+  });
 
-})
+});

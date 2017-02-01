@@ -4,8 +4,6 @@ var requestHandler = require('./requestHandler');
 
 var router = require('express').Router();
 
-// console.log(typeof requestHandler.createMetric);
-
 var app = express();
 
 // Parse JSON (uniform resource locators)
@@ -13,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // For larger scale App, the router configuration should be in a separate file
+router.use(requestHandler.checkInputDataType);
+
 router.post('/createmetric', requestHandler.createMetric);
 router.post('/postvalues', requestHandler.postValues);
 router.get('/retrievestatistics', requestHandler.retrieveStatistics);
