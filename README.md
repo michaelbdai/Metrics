@@ -15,7 +15,8 @@ Web API supports the following actions:
 ## API documentation
 
 ### Create a Metric
-endpoint: /api/createmetric
+
+endpoint: /api/createmetric <br>
 request body:
 ```
 { 
