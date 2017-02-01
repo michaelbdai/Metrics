@@ -33,3 +33,20 @@ The data struction of the 'Neo' metric looks like this.
   maxHeap: { content: [ 2, 0, 1, 3 ], compareFunction: [Function] } }
 ```
 The sorting heap only save a copy of the index for conent. It takes the contents as arguement when it performs the soring. For scalability, the value can be very big, it saves space by only copying the index only. 
+
+## Usage
+Intial installation
+```
+npm install
+```
+Run test
+```
+npm test
+```
+Start server
+```
+npm start
+```
+## Deploy instruction
+
+
